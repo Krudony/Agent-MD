@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ทดลองอัปโหลดไฟล์</title>
+  <style>
+    :root {
+      font-family: 'Prompt', 'Kanit', sans-serif;
+      color: #20242c;
+      background-color: #f2f5f9;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .card {
+      width: min(420px, 100%);
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 30px 60px rgba(32, 36, 44, 0.18);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(119, 89, 232, 0.25), transparent 45%),
+        radial-gradient(circle at bottom right, rgba(255, 111, 145, 0.2), transparent 40%);
+      z-index: 0;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      margin: 0 0 0.75rem;
+      font-size: 1.8rem;
+    }
+
+    p {
+      margin: 0 0 1.5rem;
+      color: #5a6072;
+    }
+
+    .upload-box {
+      border: 2px dashed #a8b0c4;
+      border-radius: 18px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .upload-box:hover {
+      border-color: #6f7efb;
+      background: rgba(111, 126, 251, 0.05);
+    }
+
+    .upload-box input[type="file"] {
+      display: none;
+    }
+
+    .upload-icon {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6f7efb, #9f7aea);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      box-shadow: 0 10px 20px rgba(111, 126, 251, 0.4);
+    }
+
+    label {
+      display: block;
+      color: #3c4461;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .filename {
+      font-size: 0.9rem;
+      color: #7c859f;
+      min-height: 1.4em;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 1.25rem;
+      border: none;
+      border-radius: 999px;
+      padding: 0.95rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #ff6f91, #ff9671);
+      box-shadow: 0 20px 30px rgba(255, 111, 145, 0.35);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 25px 35px rgba(255, 111, 145, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="card-content">
+      <h1>อัปโหลดไฟล์ทดสอบ</h1>
+      <p>ลองเลือกไฟล์เพื่อทดสอบการอัปโหลด ขนาดไฟล์สูงสุด 5 MB.</p>
+
+      <label for="upload">เลือกไฟล์ของคุณ</label>
+      <div class="upload-box" onclick="document.getElementById('upload').click()">
+        <div class="upload-icon">⇡</div>
+        <div>ลากไฟล์มาวาง หรือคลิกเพื่อเลือกไฟล์</div>
+        <input type="file" id="upload" accept="image/*,application/pdf" onchange="showFileName(event)" />
+      </div>
+      <div class="filename" id="filename"></div>
+
+      <button type="button">อัปโหลดไฟล์</button>
+    </div>
+  </main>
+
+  <script>
+    function showFileName(event) {
+      const file = event.target.files[0];
+      const label = document.getElementById('filename');
+      label.textContent = file ? `เลือกไฟล์: ${file.name}` : '';
+    }
+  </script>
+</body>
+</html>
