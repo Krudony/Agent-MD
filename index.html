@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ทดลองอัปโหลดไฟล์</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap');
+
+    :root {
+      font-family: 'Prompt', 'Kanit', sans-serif;
+      color: #1c2c4c;
+      background-color: #dff3ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 2rem;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.8), transparent 60%),
+        linear-gradient(135deg, #b5d9ff, #e0f4ff 60%, #f6fbff);
+    }
+
+    .card {
+      width: min(460px, 100%);
+      background: linear-gradient(160deg, #ffffff 0%, #f4fbff 100%);
+      border-radius: 32px;
+      box-shadow: 0 25px 60px rgba(28, 44, 76, 0.15);
+      padding: 2.75rem 2.25rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .card::before,
+    .card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(92, 161, 255, 0.12);
+      filter: blur(0.5px);
+      z-index: -1;
+    }
+
+    .card::before {
+      width: 320px;
+      height: 320px;
+      top: -140px;
+      right: -60px;
+      background: rgba(131, 196, 255, 0.25);
+    }
+
+    .card::after {
+      width: 220px;
+      height: 220px;
+      bottom: -120px;
+      left: -40px;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      margin: 0 0 0.45rem;
+      font-size: 1.9rem;
+      color: #1a3f6b;
+    }
+
+    p {
+      margin: 0 0 1.8rem;
+      color: #4c6389;
+      line-height: 1.6;
+    }
+
+    .upload-box {
+      border: 2px dashed rgba(92, 127, 179, 0.6);
+      border-radius: 20px;
+      padding: 1.6rem 1.4rem;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.8);
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .upload-box:hover {
+      border-color: #3aa0ff;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(58, 160, 255, 0.15);
+    }
+
+    .upload-box input[type="file"] {
+      display: none;
+    }
+
+    .upload-icon {
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 1rem;
+      border-radius: 26px;
+      background: linear-gradient(135deg, #54b0ff, #89d1ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2.3rem;
+      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.35), 0 15px 30px rgba(84, 176, 255, 0.35);
+    }
+
+    label {
+      display: block;
+      color: #2f4f7a;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .filename {
+      font-size: 0.95rem;
+      color: #5a7198;
+      min-height: 1.4em;
+      margin-top: 0.75rem;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 1.35rem;
+      border: none;
+      border-radius: 999px;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #3aa0ff, #54d4ff);
+      box-shadow: 0 20px 35px rgba(58, 160, 255, 0.35);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 25px 40px rgba(58, 160, 255, 0.45);
+    }
+
+    .mascot {
+      width: 180px;
+      margin: 0 auto 1.6rem;
+    }
+
+    .helper-text {
+      margin-top: 0.9rem;
+      font-size: 0.9rem;
+      color: #5d6c8a;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="card-content">
+      <div class="mascot" aria-hidden="true">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7fd0ff" />
+              <stop offset="100%" stop-color="#d9f1ff" />
+            </linearGradient>
+            <linearGradient id="cheekGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ffb6c1" />
+              <stop offset="100%" stop-color="#ffd9e3" />
+            </linearGradient>
+          </defs>
+          <ellipse cx="100" cy="90" rx="70" ry="45" fill="url(#bodyGradient)" stroke="#6ab9ff" stroke-width="3" />
+          <ellipse cx="70" cy="85" rx="12" ry="8" fill="url(#cheekGradient)" opacity="0.7" />
+          <ellipse cx="130" cy="85" rx="12" ry="8" fill="url(#cheekGradient)" opacity="0.7" />
+          <circle cx="80" cy="80" r="8" fill="#1a3f6b" />
+          <circle cx="120" cy="80" r="8" fill="#1a3f6b" />
+          <path d="M82 102 Q100 112 118 102" fill="none" stroke="#1a3f6b" stroke-width="4" stroke-linecap="round" />
+          <path d="M55 70 Q100 45 145 70" fill="none" stroke="#6ab9ff" stroke-width="5" stroke-linecap="round" />
+          <circle cx="45" cy="65" r="10" fill="#ffffff" stroke="#6ab9ff" stroke-width="3" />
+          <circle cx="155" cy="65" r="10" fill="#ffffff" stroke="#6ab9ff" stroke-width="3" />
+          <path d="M100 25 C115 25 125 40 125 50 C125 65 105 70 100 85 C95 70 75 65 75 50 C75 40 85 25 100 25Z"
+            fill="#ffffff" stroke="#6ab9ff" stroke-width="3" />
+          <circle cx="92" cy="50" r="4" fill="#89c9ff" />
+          <circle cx="108" cy="50" r="4" fill="#89c9ff" />
+        </svg>
+      </div>
+
+      <h1>อัปโหลดไฟล์ทดสอบ</h1>
+      <p>ธีมใหม่โทนฟ้า-ขาว พร้อมตัวการ์ตูนเพื่อนคู่ใจ ให้การทดลองอัปโหลดดูสดใสน่าใช้ยิ่งขึ้น</p>
+
+      <label for="upload">เลือกไฟล์ของคุณ</label>
+      <div class="upload-box" onclick="document.getElementById('upload').click()">
+        <div class="upload-icon">⇡</div>
+        <div>ลากไฟล์มาวาง หรือคลิกเพื่อเลือกไฟล์</div>
+        <input type="file" id="upload" accept="image/*,application/pdf" onchange="showFileName(event)" />
+      </div>
+      <div class="filename" id="filename"></div>
+
+      <button type="button">อัปโหลดไฟล์</button>
+      <div class="helper-text">รองรับไฟล์ภาพและ PDF ขนาดไม่เกิน 5 MB</div>
+    </div>
+  </main>
+
+  <script>
+    function showFileName(event) {
+      const file = event.target.files[0];
+      const label = document.getElementById('filename');
+      label.textContent = file ? `เลือกไฟล์: ${file.name}` : '';
+    }
+  </script>
+</body>
+</html>
